@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meu Banco</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        button { padding: 10px; font-size: 16px; cursor: pointer; }
+        #lista-usuarios { list-style-type: none; padding: 0; }
+        #lista-usuarios li { border: 1px solid #ccc; margin: 10px 0; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>Bem-vindo ao Banco Virtual</h1>
+    <p>Clique no botão abaixo para ver a lista de clientes cadastrados.</p>
+
+    <button id="buscar-clientes">Buscar Clientes</button>
+
+    <hr>
+
+    <h2>Clientes:</h2>
+    <ul id="lista-usuarios">
+        </ul>
+
+    <script>
+        // Este é o código JavaScript que faz a mágica acontecer
+
+        // 1. Pega o botão e a lista da tela
+        const botao = document.getElementById('buscar-clientes');
+        const lista = document.getElementById('lista-usuarios');
+
+        // 2. Adiciona um "ouvinte" para o evento de clique no botão
+        botao.addEventListener('click', async () => {
+            
+            // 3. Faz o "pedido para a cozinha" (chama a nossa API)
+            const response = await fetch('/api/usuarios');
+            const usuarios = await response.json();
+
+            // Limpa a lista antes de adicionar os novos itens
+            lista.innerHTML = '';
+
+            // 4. Pega a resposta (os dados dos usuários) e exibe de forma bonita
+            usuarios.forEach(usuario => {
+                // Cria um item de lista <li> para cada usuário
+                const item = document.createElement('li');
+                
+                // Monta o texto que será exibido, sem mostrar o JSON feio
+                item.innerHTML = `
+                    <strong>Nome:</strong> ${usuario.nome} <br>
+                    <strong>Email:</strong> ${usuario.email} <br>
+                    <strong>Idade:</strong> ${usuario.idade} <br>
+                    <strong>Habilidades:</strong> ${usuario.habilidades.join(', ')}
+                `;
+                
+                // Adiciona o item na lista na tela
+                lista.appendChild(item);
+            });
+        });
+    </script>
+
+</body>
+</html>
