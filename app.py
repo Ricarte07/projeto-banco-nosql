@@ -5,7 +5,7 @@ from bson import json_util # Ajuda a converter dados do MongoDB para JSON
 # 1. Iniciar o Flask
 app = Flask(__name__)
 
-# 2. Conectar ao MongoDB (verifique se o seu container Docker está rodando!)
+# 2. Conectar ao MongoDB 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.MeuApp # Nome do banco de dados que criamos
 collection = db.usuarios # Nome da coleção
