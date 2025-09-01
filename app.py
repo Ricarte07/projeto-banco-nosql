@@ -10,13 +10,12 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client.MeuApp # Nome do banco de dados que criamos
 collection = db.usuarios # Nome da coleção
 
-# 3. Criar a rota para o "Restaurante" (a página principal)
 @app.route('/')
 def index():
-    # Esta função simplesmente serve o arquivo index.html para o cliente
+   
     return render_template('index.html')
 
-# 4. Criar a rota da API que entrega os dados dos usuários
+
 @app.route('/api/usuarios')
 def get_usuarios():
     # Busca todos os documentos na coleção 'usuarios'
@@ -26,6 +25,6 @@ def get_usuarios():
     # O json_util cuida do formato especial do _id do MongoDB
     return json_util.dumps(usuarios)
 
-# 5. Rodar o servidor
-if __name__ == '__main__':
-    app.run(debug=True)
+
+
+app.run(debug=True)
